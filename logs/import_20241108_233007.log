@@ -1,0 +1,11 @@
+2024-11-08 23:30:08,915 - INFO - Iniciando importação de 5 questões...
+2024-11-08 23:30:09,685 - ERROR - Erro ao importar questão: Questao() got unexpected keyword arguments: 'url_imagem'
+2024-11-08 23:30:09,708 - ERROR - Erro ao importar questão: Questao() got unexpected keyword arguments: 'url_imagem'
+2024-11-08 23:30:09,743 - ERROR - Erro ao importar questão: Questao() got unexpected keyword arguments: 'url_imagem'
+2024-11-08 23:30:09,769 - ERROR - Erro ao importar questão: Questao() got unexpected keyword arguments: 'url_imagem'
+2024-11-08 23:30:09,806 - ERROR - Erro ao importar questão: Questao() got unexpected keyword arguments: 'url_imagem'
+2024-11-08 23:30:09,813 - INFO - 
+=== Resumo da Importação ===
+2024-11-08 23:30:09,817 - INFO - Total de questões processadas: 5
+2024-11-08 23:30:09,818 - INFO - Questões importadas com sucesso: 0
+2024-11-08 23:30:09,820 - INFO - Questões com erro: 5

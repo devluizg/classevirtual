@@ -1,0 +1,120 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-4 mb-3">Bem-vindo, {{ user.first_name }}!</h1>
+            <p class="lead text-muted">Acompanhe seu progresso e continue seus estudos</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-question-circle display-4 text-primary mb-3"></i>
+                    <h5 class="card-title">Responder Questões</h5>
+                    <p class="card-text">Pratique com questões aleatórias ou escolha um assunto específico.</p>
+                    <a href="{% url 'quiz:home' %}" class="btn btn-primary">
+                        Iniciar Quiz <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-graph-up display-4 text-success mb-3"></i>
+                    <h5 class="card-title">Meu Desempenho</h5>
+                    <p class="card-text">Acompanhe suas estatísticas e evolução nos estudos.</p>
+                    <a href="{% url 'quiz:desempenho' %}" class="btn btn-success">
+                        Ver Estatísticas <i class="bi bi-bar-chart"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-circle display-4 text-info mb-3"></i>
+                    <h5 class="card-title">Meu Perfil</h5>
+                    <p class="card-text">Gerencie suas informações pessoais e preferências.</p>
+                    <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#perfilInfo">
+                        Ver Detalhes <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-gear display-4 text-secondary mb-3"></i>
+                    <h5 class="card-title">Configurações</h5>
+                    <p class="card-text">Altere sua senha e configure suas preferências.</p>
+                    <a href="{% url 'accounts:password_reset' %}" class="btn btn-secondary">
+                        Alterar Senha <i class="bi bi-key"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse" id="perfilInfo">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <h3 class="card-title mb-4">Informações do Perfil</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-envelope me-2"></i> Email</span>
+                                <span class="text-muted">{{ user.email }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-person me-2"></i> Nome de Usuário</span>
+                                <span class="text-muted">{{ user.username }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-check-circle me-2"></i> Email Verificado</span>
+                                {% if user.email_verified %}
+                                    <span class="badge bg-success rounded-pill">Sim</span>
+                                {% else %}
+                                    <span class="badge bg-danger rounded-pill">Não</span>
+                                {% endif %}
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-calendar me-2"></i> Membro desde</span>
+                                <span class="text-muted">{{ user.date_joined|date:"d/m/Y" }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-end mt-4">
+        <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">
+                <i class="bi bi-box-arrow-right"></i> Sair
+            </button>
+        </form>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', function() {
+            this.classList.add('shadow');
+            setTimeout(() => this.classList.remove('shadow'), 200);
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

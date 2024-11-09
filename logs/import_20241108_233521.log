@@ -1,0 +1,11 @@
+2024-11-08 23:35:22,317 - INFO - Iniciando importação de 5 questões...
+2024-11-08 23:35:22,317 - WARNING - Linha 2: Valor de dificuldade inválido - Campo 'dificuldade' com valor '1' (Sugestão: 'None')
+2024-11-08 23:35:22,317 - WARNING - Linha 3: Valor de dificuldade inválido - Campo 'dificuldade' com valor '2' (Sugestão: 'None')
+2024-11-08 23:35:22,317 - WARNING - Linha 4: Valor de dificuldade inválido - Campo 'dificuldade' com valor '1' (Sugestão: 'None')
+2024-11-08 23:35:22,317 - WARNING - Linha 5: Valor de dificuldade inválido - Campo 'dificuldade' com valor '1' (Sugestão: 'None')
+2024-11-08 23:35:22,317 - WARNING - Linha 6: Valor de dificuldade inválido - Campo 'dificuldade' com valor '1' (Sugestão: 'None')
+2024-11-08 23:35:22,317 - INFO - 
+=== Resumo da Importação ===
+2024-11-08 23:35:22,333 - INFO - Total de questões processadas: 5
+2024-11-08 23:35:22,335 - INFO - Questões importadas com sucesso: 0
+2024-11-08 23:35:22,335 - INFO - Questões com erro: 5

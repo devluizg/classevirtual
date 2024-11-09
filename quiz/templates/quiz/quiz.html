@@ -1,0 +1,98 @@
+{% extends 'quiz/base.html' %}
+
+{% block title %}Quiz - Sistema de Questões{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Questão</h2>
+                    <!-- Exibe o enunciado interpretando o HTML para incluir imagens -->
+                    <div class="lead">{{ questao.enunciado|safe }}</div>
+                    <form id="quiz-form" method="post" action="{% url 'quiz:verificar_resposta' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="questao_id" value="{{ questao.id }}">
+                        <div class="list-group">
+                            {% for letra, alternativa in letras_alternativas.items %}
+                            <label class="list-group-item">
+                                <input type="radio" name="resposta" value="{{ letra }}" class="me-2" required>
+                                <strong>{{ letra }})</strong> {{ alternativa }}
+                            </label>
+                            {% endfor %}
+                        </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Enviar Resposta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="feedback" class="mt-4" style="display: none;">
+                <div class="alert" role="alert">
+                    <h4 class="alert-heading" id="feedback-heading">Resposta!</h4>
+                    <p id="explicacao"></p>
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                    <a href="{% url 'quiz:questao_aleatoria' %}" class="btn btn-outline-primary btn-lg" id="proxima-questao" style="display: none;">
+                        Ir para a próxima questão
+                    </a>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'quiz:home' %}" class="btn btn-outline-secondary">Voltar para a página inicial</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+document.getElementById('quiz-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch('{% url "quiz:verificar_resposta" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Accept': 'application/json',
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const feedback = document.getElementById('feedback');
+        const explicacao = document.getElementById('explicacao');
+        const feedbackHeading = document.getElementById('feedback-heading');
+        const proximaQuestaoBtn = document.getElementById('proxima-questao');
+
+        feedback.style.display = 'block';
+        proximaQuestaoBtn.style.display = 'block';
+
+        if (data.correta) {
+            feedback.querySelector('.alert').classList.remove('alert-danger');
+            feedback.querySelector('.alert').classList.add('alert-success');
+            feedbackHeading.textContent = 'Resposta Correta!';
+        } else {
+            feedback.querySelector('.alert').classList.remove('alert-success');
+            feedback.querySelector('.alert').classList.add('alert-danger');
+            feedbackHeading.textContent = 'Resposta Incorreta!';
+        }
+        explicacao.textContent = data.explicacao;
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+        alert("Erro ao enviar a resposta. Tente novamente.");
+    });
+});
+</script>
+{% endblock %}
+
+{% endblock %}

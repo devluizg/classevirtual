@@ -1,0 +1,89 @@
+{% extends 'quiz/base.html' %}
+
+{% block title %}Selecionar Filtros - Sistema de Questões{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Filtrar Questões</h2>
+                    <form method="get" action="{% url 'quiz:questao_aleatoria' %}">
+                        <div class="mb-3">
+                            <label for="materia" class="form-label">Matéria</label>
+                            <select class="form-select" id="materia" name="materia">
+                                <option value="">Todas</option>
+                                {% for materia in materias %}
+                                <option value="{{ materia.id }}">{{ materia.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="assunto" class="form-label">Assunto</label>
+                            <select class="form-select" id="assunto" name="assunto">
+                                <option value="">Todos</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dificuldade" class="form-label">Dificuldade</label>
+                            <select class="form-select" id="dificuldade" name="dificuldade">
+                                <option value="">Todas</option>
+                                <option value="1">Fácil</option>
+                                <option value="2">Médio</option>
+                                <option value="3">Difícil</option>
+                            </select>
+                        </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Iniciar Quiz</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'quiz:home' %}" class="btn btn-outline-secondary">Voltar para a página inicial</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const materiaSelect = document.getElementById('materia');
+    const assuntoSelect = document.getElementById('assunto');
+    
+    materiaSelect.addEventListener('change', function() {
+        const materiaId = this.value;
+        
+        // Clear current options
+        assuntoSelect.innerHTML = '<option value="">Todos</option>';
+        
+        if (materiaId) {
+            fetch(`{% url 'quiz:carregar_assuntos' %}?materia_id=${materiaId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        data.forEach(function(assunto) {
+                            const option = document.createElement('option');
+                            option.value = assunto.id;
+                            option.textContent = assunto.nome;
+                            assuntoSelect.appendChild(option);
+                        });
+                    } else {
+                        console.error('Unexpected data format:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    assuntoSelect.innerHTML = '<option value="">Erro ao carregar assuntos</option>';
+                });
+        }
+    });
+});
+</script>
+{% endblock %}

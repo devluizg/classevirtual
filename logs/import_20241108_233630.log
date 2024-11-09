@@ -1,0 +1,11 @@
+2024-11-08 23:36:31,333 - INFO - Iniciando importação de 5 questões...
+2024-11-08 23:36:31,658 - ERROR - Erro ao importar questão: Field 'dificuldade' expected a number but got 'Fácil'.
+2024-11-08 23:36:31,674 - ERROR - Erro ao importar questão: Field 'dificuldade' expected a number but got 'Fácil'.
+2024-11-08 23:36:31,674 - ERROR - Erro ao importar questão: Field 'dificuldade' expected a number but got 'Fácil'.
+2024-11-08 23:36:31,674 - ERROR - Erro ao importar questão: Field 'dificuldade' expected a number but got 'Fácil'.
+2024-11-08 23:36:31,694 - ERROR - Erro ao importar questão: Field 'dificuldade' expected a number but got 'Fácil'.
+2024-11-08 23:36:31,695 - INFO - 
+=== Resumo da Importação ===
+2024-11-08 23:36:31,696 - INFO - Total de questões processadas: 5
+2024-11-08 23:36:31,696 - INFO - Questões importadas com sucesso: 0
+2024-11-08 23:36:31,697 - INFO - Questões com erro: 5

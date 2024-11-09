@@ -1,0 +1,26 @@
+{% extends 'quiz/base.html' %}
+
+{% block title %}Home - Sistema de Questões{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h1 class="card-title mb-4">Bem-vindo ao Sistema de Questões!</h1>
+                    <p class="lead text-light">Aprimore seus conhecimentos respondendo a questões de diferentes matérias e acompanhe seu progresso.</p>
+                    <div class="d-grid gap-2 d-md-block mt-4">
+                        <a href="{% url 'quiz:selecionar_filtros' %}" class="btn btn-primary btn-lg me-2">
+                            <i class="bi bi-play-circle"></i> Iniciar Quiz
+                        </a>
+                        <a href="{% url 'quiz:desempenho' %}" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-graph-up"></i> Ver Desempenho
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
