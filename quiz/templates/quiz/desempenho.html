@@ -1,55 +1,80 @@
 {% extends 'quiz/base.html' %}
-
-{% block title %}Desempenho - Sistema de Questões{% endblock %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center mb-5">Seu Desempenho</h1>
-    
+<div class="container mt-4">
+    <!-- Cartões de Desempenho -->
     <div class="row mb-4">
+        <!-- Desempenho por Matéria -->
         <div class="col-md-6">
-            <div class="card shadow-sm h-100">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Desempenho por Matéria</h5>
+                </div>
                 <div class="card-body">
-                    <h2 class="card-title">Desempenho por Matéria</h2>
-                    <div class="list-group list-group-flush">
+                    {% if materias_stats %}
                         {% for stat in materias_stats %}
-                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>{{ stat.questao__materia__nome }}</span>
-                            <span class="badge bg-primary rounded-pill">{{ stat.percentual|floatformat:1 }}%</span>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span>{{ stat.nome }}</span>
+                                <span class="badge bg-primary">{{ stat.percentual|default:'0'|floatformat:1 }}%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"
+                                     data-percentual="{{ stat.percentual|default:'0'|floatformat:1 }}"
+                                     aria-valuenow="{{ stat.percentual|default:'0'|floatformat:1 }}"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
                         </div>
                         {% endfor %}
-                    </div>
+                    {% else %}
+                        <p>Nenhum dado disponível para exibir o desempenho.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
+        
+        <!-- Conquistas -->
         <div class="col-md-6">
-            <div class="card shadow-sm h-100">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Conquistas</h5>
+                </div>
                 <div class="card-body">
-                    <h2 class="card-title">Desempenho por Assunto</h2>
-                    <div class="list-group list-group-flush">
-                        {% for stat in assuntos_stats %}
-                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>{{ stat.questao__assunto__nome }}</span>
-                            <span class="badge bg-primary rounded-pill">{{ stat.percentual|floatformat:1 }}%</span>
+                    {% for achievement in achievements %}
+                    <div class="achievement-item mb-3">
+                        <div class="d-flex align-items-center">
+                            <span class="achievement-icon me-2">{{ achievement.achievement.badge_icon }}</span>
+                            <div>
+                                <h6 class="mb-0">{{ achievement.achievement.name }}</h6>
+                                <small class="text-muted">{{ achievement.achievement.description }}</small>
+                            </div>
                         </div>
-                        {% endfor %}
                     </div>
+                    {% empty %}
+                    <p class="text-white">Continue respondendo questões para desbloquear conquistas!</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="card shadow-sm mb-4">
+
+    <!-- Histórico de Respostas -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Histórico de Respostas</h5>
+        </div>
         <div class="card-body">
-            <h2 class="card-title mb-4">Histórico de Respostas</h2>
+            {% if historico %}
             <div class="table-responsive">
                 <table class="table table-hover">
-                    <thead class="table-light">
+                    <thead>
                         <tr>
                             <th>Data</th>
                             <th>Matéria</th>
                             <th>Assunto</th>
-                            <th>Resposta</th>
                             <th>Resultado</th>
                         </tr>
                     </thead>
@@ -59,7 +84,6 @@
                             <td>{{ resposta.data_resposta|date:"d/m/Y H:i" }}</td>
                             <td>{{ resposta.questao.materia.nome }}</td>
                             <td>{{ resposta.questao.assunto.nome }}</td>
-                            <td>{{ resposta.resposta_usuario }}</td>
                             <td>
                                 {% if resposta.correta %}
                                 <span class="badge bg-success">Correta</span>
@@ -72,37 +96,60 @@
                     </tbody>
                 </table>
             </div>
+            {% include "quiz/includes/pagination.html" with page_obj=historico %}
+            {% else %}
+            <p>Nenhum histórico de respostas disponível.</p>
+            {% endif %}
         </div>
     </div>
-    
-    {% if historico.has_other_pages %}
-    <nav aria-label="Paginação do histórico">
-        <ul class="pagination justify-content-center">
-            {% if historico.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ historico.previous_page_number }}" aria-label="Anterior">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            {% endif %}
-            
-            {% for num in historico.paginator.page_range %}
-                {% if historico.number == num %}
-                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
-                {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                {% endif %}
-            {% endfor %}
-            
-            {% if historico.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ historico.next_page_number }}" aria-label="Próxima">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
 </div>
+
+<!-- Notificação de Conquista -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="achievementToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Nova Conquista!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
+        </div>
+        <div class="toast-body">
+            <span id="achievementMessage"></span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Definir a largura das barras de progresso usando JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBars = document.querySelectorAll('.progress-bar');
+        progressBars.forEach(function(bar) {
+            const percentual = parseFloat(bar.getAttribute('data-percentual')) || 0;
+            bar.style.width = percentual + '%';
+        });
+    });
+
+    // Mostrar notificação de conquista
+    function showAchievementNotification(message) {
+        document.getElementById('achievementMessage').textContent = message;
+        const toastElement = document.getElementById('achievementToast');
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+
+    // Verificar novas conquistas periodicamente
+    function checkNewAchievements() {
+        fetch('/quiz/check-achievements/')
+            .then(response => response.json())
+            .then(data => {
+                if (data.new_achievement) {
+                    showAchievementNotification(data.message);
+                }
+            })
+            .catch(error => console.error('Erro ao verificar conquistas:', error));
+    }
+
+    // Verificar a cada 30 segundos
+    setInterval(checkNewAchievements, 30000);
+</script>
 {% endblock %}

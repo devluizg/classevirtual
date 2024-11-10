@@ -4,11 +4,12 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
-from .models import Questao, RespostaUsuario, Materia, Assunto
+from .models import Questao, RespostaUsuario, Materia, Assunto, UserAchievement
 import random
 from django.views.decorators.http import require_GET
 from django.core.exceptions import ObjectDoesNotExist
 import logging
+from django.db.models import Count, F, Q
 
 @login_required
 def home(request):
@@ -101,31 +102,56 @@ def verificar_resposta(request):
         'alternativa_correta': questao.alternativa_correta,
         'explicacao': questao.explicacao
     })
+
+
 @login_required
 def desempenho(request):
-    respostas = RespostaUsuario.objects.filter(usuario=request.user)
+    user = request.user
     
-    # Estatísticas por matéria
-    estatisticas_materia = Materia.objects.annotate(
-        total_questoes=Count('questoes__respostas', filter=Q(questoes__respostas__usuario=request.user)),
-        questoes_corretas=Count('questoes__respostas', filter=Q(questoes__respostas__usuario=request.user, questoes__respostas__correta=True))
-    ).values('nome', 'total_questoes', 'questoes_corretas')
+    # Get performance statistics by subject
+    materias_stats = Materia.objects.annotate(
+        total_questoes=Count('questoes__respostas', filter=Q(questoes__respostas__usuario=user)),
+        questoes_corretas=Count('questoes__respostas', 
+            filter=Q(questoes__respostas__usuario=user, questoes__respostas__correta=True))
+    ).annotate(
+        percentual=F('questoes_corretas') * 100.0 / F('total_questoes')
+    ).values('nome', 'total_questoes', 'questoes_corretas', 'percentual')
+
+    # Get performance statistics by topic
+    assuntos_stats = Assunto.objects.annotate(
+        total_questoes=Count('questoes__respostas', filter=Q(questoes__respostas__usuario=user)),
+        questoes_corretas=Count('questoes__respostas',
+            filter=Q(questoes__respostas__usuario=user, questoes__respostas__correta=True))
+    ).annotate(
+        percentual=F('questoes_corretas') * 100.0 / F('total_questoes')
+    ).values('nome', 'materia__nome', 'total_questoes', 'questoes_corretas', 'percentual')
+
+    # Get response history with pagination
+    historico = RespostaUsuario.objects.filter(usuario=user).select_related(
+        'questao__materia', 'questao__assunto'
+    ).order_by('-data_resposta')
     
-    # Estatísticas por assunto
-    estatisticas_assunto = Assunto.objects.annotate(
-        total_questoes=Count('questoes__respostas', filter=Q(questoes__respostas__usuario=request.user)),
-        questoes_corretas=Count('questoes__respostas', filter=Q(questoes__respostas__usuario=request.user, questoes__respostas__correta=True))
-    ).values('nome', 'materia__nome', 'total_questoes', 'questoes_corretas')
-    
-    # Histórico de respostas (paginado)
-    paginator = Paginator(respostas, 10)  # 10 respostas por página
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    
+    paginator = Paginator(historico, 10)
+    page = request.GET.get('page')
+    historico_paginado = paginator.get_page(page)
+
+    # Get user achievements
+    achievements = UserAchievement.objects.filter(
+        user=user, 
+        is_completed=True
+    ).select_related('achievement_type').order_by('-earned_date')
+
     context = {
-        'estatisticas_materia': estatisticas_materia,
-        'estatisticas_assunto': estatisticas_assunto,
-        'page_obj': page_obj,
+        'materias_stats': materias_stats,
+        'assuntos_stats': assuntos_stats,
+        'historico': historico_paginado,
+        'achievements': achievements,
     }
     
     return render(request, 'quiz/desempenho.html', context)
+
+# Achievement notification system
+from django.contrib.messages import success
+
+def notify_achievement(request, achievement):
+    success(request, f'🏆 Nova conquista desbloqueada: {achievement.name}!')

@@ -1,0 +1,62 @@
+[
+    {
+        "materia": "Português",
+        "assunto": "Interpretação de Textos",
+        "dificuldade": 1,
+        "alternativa_a": "entendimento da aparência corporal relacionada à saúde.",
+        "alternativa_b": "controle feminino sobre o ideal social de estética corporal.",
+        "alternativa_c": "desejo pelo modelo de corpo ideal construído socialmente.",
+        "alternativa_d": "questionamento crítico dos valores ligados ao sucesso social.",
+        "alternativa_e": "posicionamento reflexivo da mulher frente às imposições estéticas.",
+        "alternativa_correta": "D",
+        "explicacao": "Sabe-se lá.",
+        "enunciado": [
+            {
+                "tipo": "imagem",
+                "conteudo": "https://arquivos.qconcursos.com/images/provas/56646/f97d1c86f9f82ebf539b.png"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Essa história em quadrinhos aborda a padronização da imagem corporal na contemporaneidade. O fator que pode ser identificado como influenciador do comportamento obsessivo retratado nos quadrinhos é"
+            }
+        ]
+    },
+    {
+        "materia": "Português",
+        "assunto": "Interpretação de Textos",
+        "dificuldade": 1,
+        "alternativa_a": "reprovar as medidas do governo de incentivo à aquisição do carro próprio.",
+        "alternativa_b": "apontar uma possível alternativa para resolver a questão do excesso de veículos.",
+        "alternativa_c": "mostrar a dificuldade de solução imediata para resolver o problema do crescimento da frota.",
+        "alternativa_d": "criticar, por meio da sátira, as consequências do aumento da frota de veículos.",
+        "alternativa_e": "responsabilizar a má qualidade do serviço de transporte pelo crescimento do número de veículos.",
+        "alternativa_correta": "D",
+        "explicacao": "Please.",
+        "enunciado": [
+            {
+                "tipo": "texto",
+                "conteudo": "280 novos veículos por dia no estado"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Frota, que chega a quase 1,4 milhão, deve dobrarem 13 anos"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "A cada dia, uma média de 280 novos veículos chega às ruas do Espírito Santo, segundo dados do Departamento Estadual de Trânsito (Detran-ES). No final do mês passado, a frota já era de 1 395 342 unidades, 105 mil a mais do que no mesmo mês de 2011. Os números incluem automóveis, motocicletas, caminhões e ônibus, entre outros tipos. De dezembro para cá, o crescimento foi de mais de 33 mil veículos. E, se esse ritmo continuar, a frota do Espírito Santo vai dobrar até 2025. O diretor-geral do Detran-ES relaciona o crescimento desses números à facilidade encontrada para se comprar um veículo. “Há toda uma questão econômica, da facilidade de crédito. Como oferecemos um transporte coletivo que ainda precisa ser melhorado, inevitavelmente o cidadão que pode adquire seu próprio veículo”."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Disponível em: http://gazetaonline.globo.com. Acesso em: 10 ago. 2012 (adaptado)."
+            },
+            {
+                "tipo": "imagem",
+                "conteudo": "https://arquivos.qconcursos.com/images/provas/56646/30b81b2ca38a64e4ac2c.png"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Os textos I e II tratam do mesmo tema, embora sejam de gêneros diferentes. Estabelecendo-se as relações entre os dois textos, entende-se que o Texto II tem a função de"
+            }
+        ]
+    }
+]

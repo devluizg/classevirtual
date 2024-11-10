@@ -1,0 +1,19 @@
+[
+    {
+        "materia": "Matemática",
+        "assunto": "Regra de 3",
+        "dificuldade": 2,
+        "enunciado": [
+            {"tipo": "texto", "conteudo": "Analise a figura a seguir."},
+            {"tipo": "imagem", "conteudo": "https://th.bing.com/th/id/R.07e1adce7bd0f361fdcdc40eec542cd9?rik=aCElvdkEHqTHRA&pid=ImgRaw&r=0.jpg"},
+            {"tipo": "texto", "conteudo": "Com base na figura, qual é o ângulo de 90 graus?"}
+        ],
+        "alternativa_a": "30º",
+        "alternativa_b": "45º",
+        "alternativa_c": "60º",
+        "alternativa_d": "90º",
+        "alternativa_e": "120º",
+        "alternativa_correta": "D",
+        "explicacao": "O ângulo de 90 graus é o indicado na figura."
+    }
+]
