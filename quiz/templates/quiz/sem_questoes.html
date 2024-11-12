@@ -6,13 +6,23 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-sm text-center" style="background-color: #343a40;">
-                <div class="card-body text-white">
-                    <h2 class="card-title mb-4">Não há questões disponíveis</h2>
-                    <p class="lead">Parece que você já respondeu a todas as questões disponíveis para esta matéria e assunto. Tente novamente mais tarde ou escolha outro assunto.</p>
-                    <a href="{% url 'quiz:home' %}" class="btn btn-primary mt-3">
-                        <i class="bi bi-arrow-left"></i> Voltar para a Página Inicial
-                    </a>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Sem Questões Disponíveis</h2>
+                    <p class="text-center">
+                        Não há mais questões disponíveis para os filtros selecionados:
+                    </p>
+                    <ul>
+                        <li>Matéria: {{ filtros.materia.nome|default:"Todas" }}</li>
+                        <li>Assunto: {{ filtros.assunto.nome|default:"Todos" }}</li>
+                        <li>Dificuldade: {{ filtros.dificuldade|default:"Todas" }}</li>
+                    </ul>
+                    <p class="text-center mt-4">
+                        Por favor, tente selecionar outros filtros ou volte mais tarde.
+                    </p>
+                    <div class="d-grid gap-2 mt-4">
+                        <a href="{% url 'quiz:selecionar_filtros' %}" class="btn btn-primary btn-lg">Voltar para Seleção de Filtros</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,15 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_GET
 from django.core.paginator import Paginator
-from django.db.models import Count, Q
-from .models import Questao, RespostaUsuario, Materia, Assunto, UserAchievement
-import random
-from django.views.decorators.http import require_GET
-from django.core.exceptions import ObjectDoesNotExist
-import logging
 from django.db.models import Count, F, Q
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.messages import success
+from django.utils import timezone
+from .models import Questao, RespostaUsuario, Materia, Assunto, UserAchievement, AchievementType
+import random
+import logging
+from django.contrib import messages
+
+logger = logging.getLogger(__name__)
 
 @login_required
 def home(request):
@@ -21,51 +24,54 @@ def selecionar_filtros(request):
     materias = Materia.objects.all()
     return render(request, 'quiz/selecionar_filtros.html', {'materias': materias})
 
-
-logger = logging.getLogger(__name__)
-
 @require_GET
 def carregar_assuntos(request):
-    logger.info("carregar_assuntos view called")
     materia_id = request.GET.get('materia_id')
-    logger.info(f"Received materia_id: {materia_id}")
-    
     if materia_id:
-        try:
-            assuntos = list(Assunto.objects.filter(materia_id=materia_id).values('id', 'nome'))
-            logger.info(f"Found {len(assuntos)} assuntos for materia_id {materia_id}")
-            return JsonResponse(assuntos, safe=False)
-        except Exception as e:
-            logger.error(f"Error fetching assuntos: {str(e)}")
-            return JsonResponse({'error': str(e)}, status=500)
-    else:
-        logger.warning("No materia_id provided")
-        return JsonResponse({'error': 'Materia ID is required'}, status=400)
-
+        assuntos = list(Assunto.objects.filter(materia_id=materia_id).values('id', 'nome'))
+        return JsonResponse(assuntos, safe=False)
+    return JsonResponse({'error': 'Materia ID is required'}, status=400)
 
 @login_required
 def questao_aleatoria(request):
+    logger.info(f"Received request with GET parameters: {request.GET}")
+    
     materia_id = request.GET.get('materia')
     assunto_id = request.GET.get('assunto')
     dificuldade = request.GET.get('dificuldade')
     
-    questoes = Questao.objects.all()
+    query = Questao.objects.all()
     
-    if materia_id:
-        questoes = questoes.filter(materia_id=materia_id)
-    if assunto_id:
-        questoes = questoes.filter(assunto_id=assunto_id)
-    if dificuldade:
-        questoes = questoes.filter(dificuldade=dificuldade)
+    if materia_id and materia_id != 'todas':
+        query = query.filter(materia_id=materia_id)
+        logger.info(f"Filtered by materia_id: {materia_id}")
     
-    # Excluir questões já respondidas pelo usuário
-    respondidas = RespostaUsuario.objects.filter(usuario=request.user).values_list('questao_id', flat=True)
-    questoes = questoes.exclude(id__in=respondidas)
+    if assunto_id and assunto_id != 'todos':
+        query = query.filter(assunto_id=assunto_id)
+        logger.info(f"Filtered by assunto_id: {assunto_id}")
     
-    if not questoes.exists():
-        return render(request, 'quiz/sem_questoes.html')
+    if dificuldade and dificuldade != 'todas':
+        query = query.filter(dificuldade=dificuldade)
+        logger.info(f"Filtered by dificuldade: {dificuldade}")
     
-    questao = random.choice(questoes)
+    respondidas = RespostaUsuario.objects.filter(
+        usuario=request.user
+    ).values_list('questao_id', flat=True)
+    
+    query = query.exclude(id__in=respondidas)
+    
+    if not query.exists():
+        logger.warning("No questions found with current filters")
+        context = {
+            'filtros': {
+                'materia': Materia.objects.filter(id=materia_id).first() if materia_id and materia_id != 'todas' else None,
+                'assunto': Assunto.objects.filter(id=assunto_id).first() if assunto_id and assunto_id != 'todos' else None,
+                'dificuldade': dict(Questao.DIFICULDADE_CHOICES).get(int(dificuldade)) if dificuldade and dificuldade != 'todas' else 'Todas'
+            }
+        }
+        return render(request, 'quiz/sem_questoes.html', context)
+    
+    questao = random.choice(list(query))
     
     letras_alternativas = {
         'A': questao.alternativa_a,
@@ -74,8 +80,18 @@ def questao_aleatoria(request):
         'D': questao.alternativa_d,
         'E': questao.alternativa_e,
     }
-
-    return render(request, 'quiz/quiz.html', {'questao': questao, 'letras_alternativas': letras_alternativas})
+    
+    logger.info(f"Selected question ID: {questao.id}")
+    
+    return render(request, 'quiz/quiz.html', {
+        'questao': questao,
+        'letras_alternativas': letras_alternativas,
+        'filtros_ativos': {
+            'materia': materia_id,
+            'assunto': assunto_id,
+            'dificuldade': dificuldade
+        }
+    })
 
 @login_required
 @require_http_methods(["POST"])
@@ -88,27 +104,35 @@ def verificar_resposta(request):
     
     questao = get_object_or_404(Questao, id=questao_id)
     
-    resposta, created = RespostaUsuario.objects.get_or_create(
+    if RespostaUsuario.objects.filter(usuario=request.user, questao=questao).exists():
+        return JsonResponse({'error': 'Questão já respondida'}, status=400)
+    
+    correta = (resposta_usuario.upper() == questao.alternativa_correta.upper())
+    resposta = RespostaUsuario.objects.create(
         usuario=request.user,
         questao=questao,
-        defaults={'resposta_usuario': resposta_usuario}
+        resposta_usuario=resposta_usuario,
+        correta=correta
     )
     
-    if not created:
-        return JsonResponse({'error': 'Você já respondeu esta questão'}, status=400)
+    # Verificar conquistas
+    new_achievements = check_achievements(request.user, resposta)
+    
+    # Adicionar mensagens para novas conquistas
+    for achievement in new_achievements:
+        messages.success(request, f'🏆 Nova conquista desbloqueada: {achievement.name}!')
     
     return JsonResponse({
-        'correta': resposta.correta,
+        'correta': correta,
         'alternativa_correta': questao.alternativa_correta,
-        'explicacao': questao.explicacao
+        'explicacao': questao.explicacao,
+        'new_achievements': [{'name': a.name, 'description': a.description, 'icon': a.icon} for a in new_achievements]
     })
-
 
 @login_required
 def desempenho(request):
     user = request.user
     
-    # Get performance statistics by subject
     materias_stats = Materia.objects.annotate(
         total_questoes=Count('questoes__respostas', filter=Q(questoes__respostas__usuario=user)),
         questoes_corretas=Count('questoes__respostas', 
@@ -117,7 +141,6 @@ def desempenho(request):
         percentual=F('questoes_corretas') * 100.0 / F('total_questoes')
     ).values('nome', 'total_questoes', 'questoes_corretas', 'percentual')
 
-    # Get performance statistics by topic
     assuntos_stats = Assunto.objects.annotate(
         total_questoes=Count('questoes__respostas', filter=Q(questoes__respostas__usuario=user)),
         questoes_corretas=Count('questoes__respostas',
@@ -126,7 +149,6 @@ def desempenho(request):
         percentual=F('questoes_corretas') * 100.0 / F('total_questoes')
     ).values('nome', 'materia__nome', 'total_questoes', 'questoes_corretas', 'percentual')
 
-    # Get response history with pagination
     historico = RespostaUsuario.objects.filter(usuario=user).select_related(
         'questao__materia', 'questao__assunto'
     ).order_by('-data_resposta')
@@ -135,7 +157,6 @@ def desempenho(request):
     page = request.GET.get('page')
     historico_paginado = paginator.get_page(page)
 
-    # Get user achievements
     achievements = UserAchievement.objects.filter(
         user=user, 
         is_completed=True
@@ -150,8 +171,76 @@ def desempenho(request):
     
     return render(request, 'quiz/desempenho.html', context)
 
-# Achievement notification system
-from django.contrib.messages import success
+@login_required
+def check_new_achievements(request):
+    new_achievements = UserAchievement.objects.filter(
+        user=request.user,
+        earned_date__gte=timezone.now() - timezone.timedelta(minutes=5),
+        is_completed=True
+    ).select_related('achievement_type')
+    
+    return JsonResponse({
+        'new_achievements': [
+            {
+                'name': ua.achievement_type.name,
+                'description': ua.achievement_type.description,
+                'icon': ua.achievement_type.icon
+            }
+            for ua in new_achievements
+        ]
+    })
+
+def check_achievements(user, resposta):
+    new_achievements = []
+    if resposta.correta:
+        total_correct = RespostaUsuario.objects.filter(usuario=user, correta=True).count()
+        subject_correct = RespostaUsuario.objects.filter(
+            usuario=user,
+            correta=True,
+            questao__materia=resposta.questao.materia
+        ).count()
+        topic_correct = RespostaUsuario.objects.filter(
+            usuario=user,
+            correta=True,
+            questao__assunto=resposta.questao.assunto
+        ).count()
+
+        achievements = AchievementType.objects.all()
+        for achievement in achievements:
+            progress = 0
+            if achievement.requirement_type == 'total_correct':
+                progress = total_correct
+            elif achievement.requirement_type == 'subject_correct' and achievement.requirement_subject == resposta.questao.materia:
+                progress = subject_correct
+            elif achievement.requirement_type == 'topic_correct' and achievement.requirement_topic == resposta.questao.assunto:
+                progress = topic_correct
+
+            if progress >= achievement.requirement_value:
+                user_achievement, created = UserAchievement.objects.update_or_create(
+                    user=user,
+                    achievement_type=achievement,
+                    defaults={
+                        'progress': progress,
+                        'is_completed': True
+                    }
+                )
+                if created:
+                    new_achievements.append(achievement)
+
+    return new_achievements
 
 def notify_achievement(request, achievement):
     success(request, f'🏆 Nova conquista desbloqueada: {achievement.name}!')
+
+@login_required
+def achievements(request):
+    user_achievements = UserAchievement.objects.filter(user=request.user).select_related('achievement_type')
+    achieved_ids = user_achievements.values_list('achievement_type_id', flat=True)
+    available_achievements = AchievementType.objects.exclude(id__in=achieved_ids)
+    
+    context = {
+        'user_achievements': user_achievements,
+        'available_achievements': available_achievements,
+    }
+    
+    return render(request, 'quiz/achievements.html', context)

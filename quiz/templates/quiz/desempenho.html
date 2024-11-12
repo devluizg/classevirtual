@@ -1,6 +1,8 @@
 {% extends 'quiz/base.html' %}
 {% load static %}
 
+{% block title %}Meu Desempenho{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
     <!-- Cartões de Desempenho -->
@@ -40,22 +42,25 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Conquistas</h5>
+                    <h5 class="mb-0">Conquistas Recentes</h5>
                 </div>
                 <div class="card-body">
                     {% for achievement in achievements %}
                     <div class="achievement-item mb-3">
                         <div class="d-flex align-items-center">
-                            <span class="achievement-icon me-2">{{ achievement.achievement.badge_icon }}</span>
+                            <span class="achievement-icon me-2">{{ achievement.achievement_type.icon }}</span>
                             <div>
-                                <h6 class="mb-0">{{ achievement.achievement.name }}</h6>
-                                <small class="text-muted">{{ achievement.achievement.description }}</small>
+                                <h6 class="mb-0">{{ achievement.achievement_type.name }}</h6>
+                                <small class="text-muted">{{ achievement.achievement_type.description }}</small>
                             </div>
                         </div>
                     </div>
                     {% empty %}
-                    <p class="text-white">Continue respondendo questões para desbloquear conquistas!</p>
+                    <p>Continue respondendo questões para desbloquear conquistas!</p>
                     {% endfor %}
+                    <div class="text-center mt-3">
+                        <a href="{% url 'quiz:achievements' %}" class="btn btn-outline-primary">Ver Todas as Conquistas</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,19 +108,6 @@
         </div>
     </div>
 </div>
-
-<!-- Notificação de Conquista -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="achievementToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-success text-white">
-            <strong class="me-auto">Nova Conquista!</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
-        </div>
-        <div class="toast-body">
-            <span id="achievementMessage"></span>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block extra_js %}
@@ -128,28 +120,5 @@
             bar.style.width = percentual + '%';
         });
     });
-
-    // Mostrar notificação de conquista
-    function showAchievementNotification(message) {
-        document.getElementById('achievementMessage').textContent = message;
-        const toastElement = document.getElementById('achievementToast');
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
-    }
-
-    // Verificar novas conquistas periodicamente
-    function checkNewAchievements() {
-        fetch('/quiz/check-achievements/')
-            .then(response => response.json())
-            .then(data => {
-                if (data.new_achievement) {
-                    showAchievementNotification(data.message);
-                }
-            })
-            .catch(error => console.error('Erro ao verificar conquistas:', error));
-    }
-
-    // Verificar a cada 30 segundos
-    setInterval(checkNewAchievements, 30000);
 </script>
 {% endblock %}

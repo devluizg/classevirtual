@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from .models import Materia, Assunto, Questao, RespostaUsuario
+from .models import Materia, Assunto, Questao, RespostaUsuario, UserAchievement, AchievementType
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+
 
 CustomUser = get_user_model()
 
@@ -140,7 +141,26 @@ class RespostaUsuarioAdmin(CustomAdminMixin, admin.ModelAdmin):
     def has_add_permission(self, request):
         return False  # Impede a criação manual de respostas
 
+@admin.register(AchievementType)
+class AchievementTypeAdmin(CustomAdminMixin, admin.ModelAdmin):
+    list_display = ('name', 'description', 'requirement_type', 'requirement_value', 'get_icon')
+    list_filter = ('requirement_type',)
+    search_fields = ('name', 'description')
+    
+    def get_icon(self, obj):
+        return format_html('<i class="{}"></i> {}', obj.icon, obj.icon)
+    get_icon.short_description = 'Ícone'
+
+@admin.register(UserAchievement)
+class UserAchievementAdmin(CustomAdminMixin, admin.ModelAdmin):
+    list_display = ('user', 'achievement_type', 'earned_date', 'is_completed')
+    list_filter = ('is_completed', 'earned_date', 'achievement_type')
+    search_fields = ('user__email', 'achievement_type__name')
+    autocomplete_fields = ['user', 'achievement_type']
+
 # Customização global do Admin
 admin.site.site_header = 'Administração do Sistema de Quiz'
 admin.site.site_title = 'Quiz Admin'
-admin.site.index_title = 'Gerenciamento de Questões'
+admin.site.index_title = 'Gerenciamento de Questões e Conquistas'
+
+

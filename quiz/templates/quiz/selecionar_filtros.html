@@ -9,11 +9,11 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Filtrar Questões</h2>
-                    <form method="get" action="{% url 'quiz:questao_aleatoria' %}">
+                    <form id="filtros-form" method="get" action="{% url 'quiz:questao_aleatoria' %}">
                         <div class="mb-3">
                             <label for="materia" class="form-label">Matéria</label>
-                            <select class="form-select" id="materia" name="materia">
-                                <option value="">Todas</option>
+                            <select class="form-select" id="materia" name="materia" required>
+                                <option value="todas">Todas as matérias</option>
                                 {% for materia in materias %}
                                 <option value="{{ materia.id }}">{{ materia.nome }}</option>
                                 {% endfor %}
@@ -22,13 +22,13 @@
                         <div class="mb-3">
                             <label for="assunto" class="form-label">Assunto</label>
                             <select class="form-select" id="assunto" name="assunto">
-                                <option value="">Todos</option>
+                                <option value="todos">Todos os assuntos</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="dificuldade" class="form-label">Dificuldade</label>
                             <select class="form-select" id="dificuldade" name="dificuldade">
-                                <option value="">Todas</option>
+                                <option value="todas">Todas</option>
                                 <option value="1">Fácil</option>
                                 <option value="2">Médio</option>
                                 <option value="3">Difícil</option>
@@ -55,33 +55,26 @@ document.addEventListener('DOMContentLoaded', function() {
     materiaSelect.addEventListener('change', function() {
         const materiaId = this.value;
         
-        // Clear current options
-        assuntoSelect.innerHTML = '<option value="">Todos</option>';
+        assuntoSelect.innerHTML = '<option value="todos">Carregando assuntos...</option>';
         
-        if (materiaId) {
+        if (materiaId && materiaId !== 'todas') {
             fetch(`{% url 'quiz:carregar_assuntos' %}?materia_id=${materiaId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    if (Array.isArray(data)) {
-                        data.forEach(function(assunto) {
-                            const option = document.createElement('option');
-                            option.value = assunto.id;
-                            option.textContent = assunto.nome;
-                            assuntoSelect.appendChild(option);
-                        });
-                    } else {
-                        console.error('Unexpected data format:', data);
-                    }
+                    assuntoSelect.innerHTML = '<option value="todos">Todos os assuntos</option>';
+                    data.forEach(assunto => {
+                        const option = document.createElement('option');
+                        option.value = assunto.id;
+                        option.textContent = assunto.nome;
+                        assuntoSelect.appendChild(option);
+                    });
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    assuntoSelect.innerHTML = '<option value="">Erro ao carregar assuntos</option>';
+                    assuntoSelect.innerHTML = '<option value="todos">Erro ao carregar assuntos</option>';
                 });
+        } else {
+            assuntoSelect.innerHTML = '<option value="todos">Todos os assuntos</option>';
         }
     });
 });

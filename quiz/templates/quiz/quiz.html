@@ -9,6 +9,11 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Questão</h2>
+                    <p class="text-center text-white">
+                        Matéria: {{ questao.materia.nome }} | 
+                        Assunto: {{ questao.assunto.nome }} | 
+                        Dificuldade: {{ questao.get_dificuldade_display }}
+                    </p>
                     <!-- Exibe o enunciado interpretando o HTML para incluir imagens -->
                     <div class="lead">{{ questao.enunciado|safe }}</div>
                     <form id="quiz-form" method="post" action="{% url 'quiz:verificar_resposta' %}">
@@ -34,13 +39,13 @@
                     <p id="explicacao"></p>
                 </div>
                 <div class="d-grid gap-2 mt-3">
-                    <a href="{% url 'quiz:questao_aleatoria' %}" class="btn btn-outline-primary btn-lg" id="proxima-questao" style="display: none;">
+                    <a href="{% url 'quiz:questao_aleatoria' %}?materia={{ filtros_ativos.materia|default:'todas' }}&assunto={{ filtros_ativos.assunto|default:'todos' }}&dificuldade={{ filtros_ativos.dificuldade|default:'todas' }}" class="btn btn-outline-primary btn-lg" id="proxima-questao" style="display: none;">
                         Ir para a próxima questão
                     </a>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="{% url 'quiz:home' %}" class="btn btn-outline-secondary">Voltar para a página inicial</a>
+                <a href="{% url 'quiz:selecionar_filtros' %}" class="btn btn-outline-secondary">Voltar para seleção de filtros</a>
             </div>
         </div>
     </div>
@@ -86,6 +91,12 @@ document.getElementById('quiz-form').addEventListener('submit', function(e) {
             feedbackHeading.textContent = 'Resposta Incorreta!';
         }
         explicacao.textContent = data.explicacao;
+
+        // Desabilitar o formulário após a resposta
+        document.getElementById('quiz-form').querySelectorAll('input[type=radio]').forEach(input => {
+            input.disabled = true;
+        });
+        document.querySelector('button[type=submit]').disabled = true;
     })
     .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);

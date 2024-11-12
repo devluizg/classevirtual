@@ -1,61 +1,73 @@
 [
     {
-        "materia": "Português",
-        "assunto": "Interpretação de Textos",
+        "materia": "Filosofia",
+        "assunto": "Introdução à Filosofia",
         "dificuldade": 1,
-        "alternativa_a": "entendimento da aparência corporal relacionada à saúde.",
-        "alternativa_b": "controle feminino sobre o ideal social de estética corporal.",
-        "alternativa_c": "desejo pelo modelo de corpo ideal construído socialmente.",
-        "alternativa_d": "questionamento crítico dos valores ligados ao sucesso social.",
-        "alternativa_e": "posicionamento reflexivo da mulher frente às imposições estéticas.",
-        "alternativa_correta": "D",
-        "explicacao": "Sabe-se lá.",
+        "alternativa_a": "É importante conhecer a política.",
+        "alternativa_b": "Devemos refletir sobre nossos próprios valores e crenças.",
+        "alternativa_c": "A filosofia é uma ciência exata.",
+        "alternativa_d": "A felicidade é alcançada pela riqueza.",
+        "alternativa_e": "A verdade é relativa.",
+        "alternativa_correta": "B",
+        "explicacao": "Sócrates acreditava que o autoconhecimento era essencial para uma vida ética, incentivando as pessoas a refletirem sobre suas próprias crenças e valores como base para tomar decisões justas.",
         "enunciado": [
             {
-                "tipo": "imagem",
-                "conteudo": "https://arquivos.qconcursos.com/images/provas/56646/f97d1c86f9f82ebf539b.png"
-            },
-            {
                 "tipo": "texto",
-                "conteudo": "Essa história em quadrinhos aborda a padronização da imagem corporal na contemporaneidade. O fator que pode ser identificado como influenciador do comportamento obsessivo retratado nos quadrinhos é"
+                "conteudo": "A filosofia busca compreender questões fundamentais sobre o mundo, a existência e o conhecimento. Um dos primeiros filósofos, Sócrates, acreditava que o conhecimento era essencial para a vida ética. O que Sócrates queria dizer ao afirmar \"Conhece-te a ti mesmo\"?\nDe acordo com esse texto, a língua falada pelos pomeranos"
             }
         ]
     },
     {
-        "materia": "Português",
-        "assunto": "Interpretação de Textos",
+        "materia": "Filosofia",
+        "assunto": "Ética",
         "dificuldade": 1,
-        "alternativa_a": "reprovar as medidas do governo de incentivo à aquisição do carro próprio.",
-        "alternativa_b": "apontar uma possível alternativa para resolver a questão do excesso de veículos.",
-        "alternativa_c": "mostrar a dificuldade de solução imediata para resolver o problema do crescimento da frota.",
-        "alternativa_d": "criticar, por meio da sátira, as consequências do aumento da frota de veículos.",
-        "alternativa_e": "responsabilizar a má qualidade do serviço de transporte pelo crescimento do número de veículos.",
-        "alternativa_correta": "D",
-        "explicacao": "Please.",
+        "alternativa_a": "Ser indeciso é uma virtude.",
+        "alternativa_b": "A virtude é alcançada evitando os extremos e buscando o equilíbrio.",
+        "alternativa_c": "A virtude é determinada pela riqueza.",
+        "alternativa_d": "A virtude não depende de nossos atos.",
+        "alternativa_e": "A virtude é um talento inato.",
+        "alternativa_correta": "B",
+        "explicacao": "Aristóteles acreditava que a virtude está no meio-termo, ou seja, na busca por equilíbrio entre os extremos, como a coragem entre a covardia e a imprudência.",
         "enunciado": [
             {
                 "tipo": "texto",
-                "conteudo": "280 novos veículos por dia no estado"
-            },
+                "conteudo": "Aristóteles afirmou que a virtude está no \"caminho do meio\". O que isso significa?"
+            }
+        ]
+    },
+    {
+        "materia": "Filosofia",
+        "assunto": "Filosofia Moderna",
+        "dificuldade": 1,
+        "alternativa_a": "\"O homem é a medida de todas as coisas.\"",
+        "alternativa_b": "\"A virtude é o caminho do meio.\"",
+        "alternativa_c": "\"Penso, logo existo.\"",
+        "alternativa_d": "\"A filosofia é filha do medo.\"",
+        "alternativa_e": "\"A verdade é o fim de toda busca.\"",
+        "alternativa_correta": "C",
+        "explicacao": "\"Penso, logo existo\" é a conclusão de Descartes para estabelecer uma base inquestionável para o conhecimento, afirmando que o ato de pensar é a prova irrefutável da própria existência.",
+        "enunciado": [
             {
                 "tipo": "texto",
-                "conteudo": "Frota, que chega a quase 1,4 milhão, deve dobrarem 13 anos"
-            },
+                "conteudo": "Descartes, em sua obra \"Meditações\", buscava uma base sólida para o conhecimento. Qual frase famosa resume seu método?"
+            }
+        ]
+    },
+    {
+        "materia": "Filosofia",
+        "assunto": "Filosofia Contemporânea",
+        "dificuldade": 1,
+        "alternativa_a": "A busca por riqueza e poder.",
+        "alternativa_b": "A superação dos limites impostos pela moralidade tradicional.",
+        "alternativa_c": "A busca pela igualdade entre os indivíduos.",
+        "alternativa_d": "A aceitação passiva do destino.",
+        "alternativa_e": "A imitação dos valores da sociedade.",
+        "alternativa_correta": "B",
+        "explicacao": "Nietzsche propôs que o \"super-homem\" é aquele que supera os valores convencionais, criando sua própria moral e perseguindo seu potencial de forma independente.",
+        "enunciado": [
             {
                 "tipo": "texto",
-                "conteudo": "A cada dia, uma média de 280 novos veículos chega às ruas do Espírito Santo, segundo dados do Departamento Estadual de Trânsito (Detran-ES). No final do mês passado, a frota já era de 1 395 342 unidades, 105 mil a mais do que no mesmo mês de 2011. Os números incluem automóveis, motocicletas, caminhões e ônibus, entre outros tipos. De dezembro para cá, o crescimento foi de mais de 33 mil veículos. E, se esse ritmo continuar, a frota do Espírito Santo vai dobrar até 2025. O diretor-geral do Detran-ES relaciona o crescimento desses números à facilidade encontrada para se comprar um veículo. “Há toda uma questão econômica, da facilidade de crédito. Como oferecemos um transporte coletivo que ainda precisa ser melhorado, inevitavelmente o cidadão que pode adquire seu próprio veículo”."
-            },
-            {
-                "tipo": "texto",
-                "conteudo": "Disponível em: http://gazetaonline.globo.com. Acesso em: 10 ago. 2012 (adaptado)."
-            },
-            {
-                "tipo": "imagem",
-                "conteudo": "https://arquivos.qconcursos.com/images/provas/56646/30b81b2ca38a64e4ac2c.png"
-            },
-            {
-                "tipo": "texto",
-                "conteudo": "Os textos I e II tratam do mesmo tema, embora sejam de gêneros diferentes. Estabelecendo-se as relações entre os dois textos, entende-se que o Texto II tem a função de"
+                "conteudo": "Friedrich Nietzsche introduziu o conceito do \"super-homem\" como parte de sua filosofia. O que esse conceito representa?"
             }
         ]
     }

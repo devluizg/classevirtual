@@ -1,0 +1,58 @@
+{% extends 'quiz/base.html' %}
+
+{% block title %}Conquistas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Suas Conquistas</h1>
+
+    <div class="row">
+        {% for achievement in user_achievements %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi {{ achievement.achievement_type.icon }}"></i>
+                            {{ achievement.achievement_type.name }}
+                        </h5>
+                        <p class="card-text">{{ achievement.achievement_type.description }}</p>
+                        <p class="card-text"><small style="color: white;">Conquistado em: {{ achievement.earned_date|date:"d/m/Y" }}</small></p>
+                        <!-- Botões de compartilhamento -->
+                        <div class="mt-3">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}&quote=Eu conquistei '{{ achievement.achievement_type.name }}' no Classe Virtual!" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="bi bi-facebook"></i> Compartilhar
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?text=Eu conquistei '{{ achievement.achievement_type.name }}' no Classe Virtual!&url={{ request.build_absolute_uri }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="bi bi-twitter"></i> Tweetar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center">Você ainda não tem conquistas. Continue respondendo questões para ganhar!</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="text-center mt-5 mb-4">Conquistas Disponíveis</h2>
+
+    <div class="row">
+        {% for achievement in available_achievements %}
+            <div class="col-md-4 mb-4">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi {{ achievement.icon }}"></i>
+                            {{ achievement.name }}
+                        </h5>
+                        <p class="card-text">{{ achievement.description }}</p>
+                        <p class="card-text"><small>Requisito: {{ achievement.requirement_value }} {{ achievement.get_requirement_type_display }}</small></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
