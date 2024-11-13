@@ -141,6 +141,7 @@ class RespostaUsuarioAdmin(CustomAdminMixin, admin.ModelAdmin):
     def has_add_permission(self, request):
         return False  # Impede a criação manual de respostas
 
+
 @admin.register(AchievementType)
 class AchievementTypeAdmin(CustomAdminMixin, admin.ModelAdmin):
     list_display = ('name', 'description', 'requirement_type', 'requirement_value', 'get_icon')
@@ -148,15 +149,20 @@ class AchievementTypeAdmin(CustomAdminMixin, admin.ModelAdmin):
     search_fields = ('name', 'description')
     
     def get_icon(self, obj):
-        return format_html('<i class="{}"></i> {}', obj.icon, obj.icon)
+        return format_html('<i class="{}" style="font-size: 1.5rem; color: #ffc107;"></i>', obj.icon_url)
     get_icon.short_description = 'Ícone'
 
 @admin.register(UserAchievement)
 class UserAchievementAdmin(CustomAdminMixin, admin.ModelAdmin):
-    list_display = ('user', 'achievement_type', 'earned_date', 'is_completed')
+    list_display = ('user', 'achievement_type', 'earned_date', 'is_completed', 'get_progress')
     list_filter = ('is_completed', 'earned_date', 'achievement_type')
     search_fields = ('user__email', 'achievement_type__name')
     autocomplete_fields = ['user', 'achievement_type']
+
+    def get_progress(self, obj):
+        return f"{obj.progress}/{obj.achievement_type.requirement_value}"
+    get_progress.short_description = 'Progresso'
+
 
 # Customização global do Admin
 admin.site.site_header = 'Administração do Sistema de Quiz'

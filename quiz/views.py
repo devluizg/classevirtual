@@ -184,7 +184,7 @@ def check_new_achievements(request):
             {
                 'name': ua.achievement_type.name,
                 'description': ua.achievement_type.description,
-                'icon': ua.achievement_type.icon
+                'icon_url': ua.achievement_type.icon_url
             }
             for ua in new_achievements
         ]

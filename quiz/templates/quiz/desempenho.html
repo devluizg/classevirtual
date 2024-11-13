@@ -11,7 +11,10 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Desempenho por Matéria</h5>
+                    <h5 class="mb-0">
+                        <i class="bi bi-graph-up me-2"></i>
+                        Desempenho por Matéria
+                    </h5>
                 </div>
                 <div class="card-body">
                     {% if materias_stats %}
@@ -32,7 +35,10 @@
                         </div>
                         {% endfor %}
                     {% else %}
-                        <p>Nenhum dado disponível para exibir o desempenho.</p>
+                        <p>
+                            <i class="bi bi-exclamation-circle me-2"></i>
+                            Nenhum dado disponível para exibir o desempenho.
+                        </p>
                     {% endif %}
                 </div>
             </div>
@@ -42,24 +48,35 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Conquistas Recentes</h5>
+                    <h5 class="mb-0">
+                        <i class="bi bi-trophy-fill me-2"></i>
+                        Conquistas Recentes
+                    </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body bg-dark">
                     {% for achievement in achievements %}
                     <div class="achievement-item mb-3">
                         <div class="d-flex align-items-center">
-                            <span class="achievement-icon me-2">{{ achievement.achievement_type.icon }}</span>
+                            <span class="achievement-icon me-2">
+                                <i class="{{ achievement.achievement_type.icon_url }}"></i>
+                            </span>
                             <div>
-                                <h6 class="mb-0">{{ achievement.achievement_type.name }}</h6>
-                                <small class="text-muted">{{ achievement.achievement_type.description }}</small>
+                                <h6 class="mb-0 text-white">{{ achievement.achievement_type.name }}</h6>
+                                <small class="achievement-description text-white">{{ achievement.achievement_type.description }}</small>
                             </div>
                         </div>
                     </div>
                     {% empty %}
-                    <p>Continue respondendo questões para desbloquear conquistas!</p>
+                    <p class="text-white">
+                        <i class="bi bi-emoji-smile me-2"></i>
+                        Continue respondendo questões para desbloquear conquistas!
+                    </p>
                     {% endfor %}
                     <div class="text-center mt-3">
-                        <a href="{% url 'quiz:achievements' %}" class="btn btn-outline-primary">Ver Todas as Conquistas</a>
+                        <a href="{% url 'quiz:achievements' %}" class="btn btn-outline-light">
+                            <i class="bi bi-eye-fill me-2"></i>
+                            Ver Todas as Conquistas
+                        </a>
                     </div>
                 </div>
             </div>
@@ -69,7 +86,10 @@
     <!-- Histórico de Respostas -->
     <div class="card shadow mb-4">
         <div class="card-header bg-info text-white">
-            <h5 class="mb-0">Histórico de Respostas</h5>
+            <h5 class="mb-0">
+                <i class="bi bi-clock-history me-2"></i>
+                Histórico de Respostas
+            </h5>
         </div>
         <div class="card-body">
             {% if historico %}
@@ -77,10 +97,10 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Data</th>
-                            <th>Matéria</th>
-                            <th>Assunto</th>
-                            <th>Resultado</th>
+                            <th><i class="bi bi-calendar-event me-2"></i>Data</th>
+                            <th><i class="bi bi-book me-2"></i>Matéria</th>
+                            <th><i class="bi bi-bookmark me-2"></i>Assunto</th>
+                            <th><i class="bi bi-check-circle me-2"></i>Resultado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,9 +111,15 @@
                             <td>{{ resposta.questao.assunto.nome }}</td>
                             <td>
                                 {% if resposta.correta %}
-                                <span class="badge bg-success">Correta</span>
+                                <span class="badge bg-success">
+                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                    Correta
+                                </span>
                                 {% else %}
-                                <span class="badge bg-danger">Incorreta</span>
+                                <span class="badge bg-danger">
+                                    <i class="bi bi-x-circle-fill me-1"></i>
+                                    Incorreta
+                                </span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -103,22 +129,74 @@
             </div>
             {% include "quiz/includes/pagination.html" with page_obj=historico %}
             {% else %}
-            <p>Nenhum histórico de respostas disponível.</p>
+            <p>
+                <i class="bi bi-info-circle me-2"></i>
+                Nenhum histórico de respostas disponível.
+            </p>
             {% endif %}
         </div>
     </div>
 </div>
-{% endblock %}
+
+<style>
+    .achievement-icon {
+        font-size: 1.5rem;
+        width: 2rem;
+        text-align: center;
+        color: #ffc107; /* Cor dourada para os ícones */
+    }
+    .achievement-description {
+        opacity: 0.8;
+    }
+    .card-body.bg-dark {
+        color: white;
+    }
+    .achievement-item {
+        transition: transform 0.2s ease;
+    }
+    .achievement-item:hover {
+        transform: translateX(5px);
+    }
+    .bi {
+        vertical-align: middle;
+    }
+    .progress {
+        height: 10px;
+        border-radius: 5px;
+    }
+    .progress-bar {
+        transition: width 0.6s ease;
+        background-color: #0d6efd;
+    }
+    .badge {
+        font-size: 0.9em;
+        padding: 0.5em 0.8em;
+    }
+    .table th {
+        border-top: none;
+    }
+    .card {
+        border: none;
+        margin-bottom: 20px;
+    }
+    .card-header {
+        border-bottom: none;
+    }
+    
+</style>
 
 {% block extra_js %}
 <script>
-    // Definir a largura das barras de progresso usando JavaScript
     document.addEventListener('DOMContentLoaded', function() {
         const progressBars = document.querySelectorAll('.progress-bar');
         progressBars.forEach(function(bar) {
             const percentual = parseFloat(bar.getAttribute('data-percentual')) || 0;
-            bar.style.width = percentual + '%';
+            setTimeout(() => {
+                bar.style.width = percentual + '%';
+            }, 200);
         });
     });
 </script>
+{% endblock %}
+
 {% endblock %}

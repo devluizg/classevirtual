@@ -87,22 +87,64 @@ class RespostaUsuario(models.Model):
     def __str__(self):
         return f"{self.usuario.email} - Questão {self.questao.id} - {'Correta' if self.correta else 'Incorreta'}"
 
+
 class AchievementType(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    icon = models.CharField(max_length=50)
-    requirement_type = models.CharField(max_length=50, choices=[
-        ('total_correct', 'Total de respostas corretas'),
-        ('subject_correct', 'Assuntos'),
-        ('topic_correct', 'Tópicos'),
-        ('streak', 'Sequência de respostas'),
-    ])
-    requirement_value = models.IntegerField()
-    requirement_subject = models.ForeignKey(Materia, null=True, blank=True, on_delete=models.SET_NULL)
-    requirement_topic = models.ForeignKey(Assunto, null=True, blank=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=100, verbose_name="Nome")
+    description = models.TextField(verbose_name="Descrição")
+    icon_url = models.CharField(
+        max_length=50,
+        verbose_name="Classe do Ícone",
+        default="bi bi-trophy-fill",
+        help_text="Classe do ícone do Bootstrap (ex: bi bi-trophy-fill, bi bi-star-fill)"
+    )
+    requirement_type = models.CharField(
+        max_length=50,
+        verbose_name="Tipo de Requisito",
+        choices=[
+            ('total_correct', 'Total de respostas corretas'),
+            ('subject_correct', 'Respostas corretas por matéria'),
+            ('topic_correct', 'Respostas corretas por tópico'),
+            ('streak', 'Sequência de respostas corretas'),
+        ]
+    )
+    requirement_value = models.IntegerField(verbose_name="Valor do Requisito")
+    requirement_subject = models.ForeignKey(
+        Materia, 
+        null=True, 
+        blank=True, 
+        on_delete=models.SET_NULL,
+        verbose_name="Matéria Requerida"
+    )
+    requirement_topic = models.ForeignKey(
+        Assunto, 
+        null=True, 
+        blank=True, 
+        on_delete=models.SET_NULL,
+        verbose_name="Tópico Requerido"
+    )
+
+    class Meta:
+        verbose_name = "Tipo de Conquista"
+        verbose_name_plural = "Tipos de Conquistas"
+
+    def get_icon_class(self):
+        """Retorna a classe do ícone baseada no tipo de requisito se não houver um ícone personalizado"""
+        if self.icon_url and self.icon_url.startswith('bi '):
+            return self.icon_url
+            
+        # Ícones padrão baseados no tipo de requisito
+        icons = {
+            'total_correct': 'bi bi-check-circle-fill',
+            'subject_correct': 'bi bi-book-fill',
+            'topic_correct': 'bi bi-bookmark-star-fill',
+            'streak': 'bi bi-lightning-fill'
+        }
+        return icons.get(self.requirement_type, 'bi bi-trophy-fill')
 
     def __str__(self):
         return self.name
+
+
 
 class UserAchievement(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

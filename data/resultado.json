@@ -1,73 +1,426 @@
 [
     {
-        "materia": "Filosofia",
-        "assunto": "Introdução à Filosofia",
+        "materia": "Matemática",
+        "assunto": "Regra de 3",
         "dificuldade": 1,
-        "alternativa_a": "É importante conhecer a política.",
-        "alternativa_b": "Devemos refletir sobre nossos próprios valores e crenças.",
-        "alternativa_c": "A filosofia é uma ciência exata.",
-        "alternativa_d": "A felicidade é alcançada pela riqueza.",
-        "alternativa_e": "A verdade é relativa.",
-        "alternativa_correta": "B",
-        "explicacao": "Sócrates acreditava que o autoconhecimento era essencial para uma vida ética, incentivando as pessoas a refletirem sobre suas próprias crenças e valores como base para tomar decisões justas.",
+        "alternativa_a": "R$ 0,18",
+        "alternativa_b": "R$ 2,18",
+        "alternativa_c": "R$ 3,08",
+        "alternativa_d": "R$ 3,18",
+        "alternativa_e": "R$ 12,80",
+        "alternativa_correta": "E",
+        "explicacao": "Se uma hora e meia tem 90 minutos, basta multiplicar o valor por minuto e adicionar a taxa ao final",
         "enunciado": [
             {
                 "tipo": "texto",
-                "conteudo": "A filosofia busca compreender questões fundamentais sobre o mundo, a existência e o conhecimento. Um dos primeiros filósofos, Sócrates, acreditava que o conhecimento era essencial para a vida ética. O que Sócrates queria dizer ao afirmar \"Conhece-te a ti mesmo\"?\nDe acordo com esse texto, a língua falada pelos pomeranos"
+                "conteudo": "Mariana não tem computador pessoal em casa e precisa fazer uma pesquisa na internet para um trabalho de escola. Então, foi até uma lan house perto de sua casa. Na porta da lan house havia esta placa:"
+            },
+            {
+                "tipo": "imagem",
+                "conteudo": "https://qcon-assets-production.s3.amazonaws.com/images/provas/114100/Captura_de%20tela%202024-07-30%20003934.png"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Assim, quantos reais Mariana pagaria para ficar uma hora e meia usando a internet nessa lan house?"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "90 . 0,12 + 2 = 12,8 reais"
             }
         ]
     },
     {
-        "materia": "Filosofia",
-        "assunto": "Ética",
+        "materia": "Matemática",
+        "assunto": "Regra de 3",
         "dificuldade": 1,
-        "alternativa_a": "Ser indeciso é uma virtude.",
-        "alternativa_b": "A virtude é alcançada evitando os extremos e buscando o equilíbrio.",
-        "alternativa_c": "A virtude é determinada pela riqueza.",
-        "alternativa_d": "A virtude não depende de nossos atos.",
-        "alternativa_e": "A virtude é um talento inato.",
-        "alternativa_correta": "B",
-        "explicacao": "Aristóteles acreditava que a virtude está no meio-termo, ou seja, na busca por equilíbrio entre os extremos, como a coragem entre a covardia e a imprudência.",
+        "alternativa_a": "2,0",
+        "alternativa_b": "3,0",
+        "alternativa_c": "3,3",
+        "alternativa_d": "8,3",
+        "alternativa_e": "12,0",
+        "alternativa_correta": "D",
+        "explicacao": "Vamos calcular usando a regra de três",
         "enunciado": [
             {
                 "tipo": "texto",
-                "conteudo": "Aristóteles afirmou que a virtude está no \"caminho do meio\". O que isso significa?"
+                "conteudo": "Em um ateliê de costura, para confeccionar 200 calças jeans, em 5 dias de trabalho, são necessários 10 funcionários. Devido a uma crise financeira no ateliê, a gerência decidiu demitir 4 funcionários visando a redução de custos. Sabe-se que a produção deverá ser mantida com o novo quadro de funcionários, ou seja, após a demissão."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Em quantos dias de trabalho o novo quadro de funcionários confeccionará a mesma quantidade de calças jeans?"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "5 dias — 10 funcionários"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "x dias — 6 funcionários"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Como quanto menos funcionários, mais dias, essas são grandezas inversamente proporcionais, então multiplicarei direto"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "6.x = 5.10"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "x = 50/6"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "x = 8,33"
             }
         ]
     },
     {
-        "materia": "Filosofia",
-        "assunto": "Filosofia Moderna",
+        "materia": "Matemática",
+        "assunto": "Regra de 3",
         "dificuldade": 1,
-        "alternativa_a": "\"O homem é a medida de todas as coisas.\"",
-        "alternativa_b": "\"A virtude é o caminho do meio.\"",
-        "alternativa_c": "\"Penso, logo existo.\"",
-        "alternativa_d": "\"A filosofia é filha do medo.\"",
-        "alternativa_e": "\"A verdade é o fim de toda busca.\"",
+        "alternativa_a": "286.",
+        "alternativa_b": "280.",
+        "alternativa_c": "259.",
+        "alternativa_d": "240.",
+        "alternativa_e": "146.",
+        "alternativa_correta": "D",
+        "explicacao": "Sabendo que paga 0,58 reais e devemos adicionar a tarifa de 0,045 reais da bandeira vermelha, por kWh a família gasta",
+        "enunciado": [
+            {
+                "tipo": "texto",
+                "conteudo": "Uma família decidiu comprar um aparelho condicionador de ar usando como critério de escolha seu consumo mensal de energia. Suponha que o valor de 1 kWh da conta de energia elétrica dessa família custe R$ 0,58 (impostos incluídos) e que há bandeira tarifária vermelha correspondendo a R$ 0,045 para cada 1 kWh consumido."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "O uso desse aparelho deve representar um acréscimo mensal na conta de energia elétrica da família de R$ 150,00."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "O consumo de energia elétrica mensal mais próximo, em quilowatt-hora, que o aparelho deve ter é igual a"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "0,58 + 0,045 = 0,625 reais"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Sabemos que a família pagou 150 reais, então os kWh gastos foram"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "150/0,625 = 240 kWh"
+            }
+        ]
+    },
+    {
+        "materia": "Matemática",
+        "assunto": "Unidade de Medida",
+        "dificuldade": 1,
+        "alternativa_a": "5",
+        "alternativa_b": "8",
+        "alternativa_c": "58",
+        "alternativa_d": "71",
+        "alternativa_e": "83",
         "alternativa_correta": "C",
-        "explicacao": "\"Penso, logo existo\" é a conclusão de Descartes para estabelecer uma base inquestionável para o conhecimento, afirmando que o ato de pensar é a prova irrefutável da própria existência.",
+        "explicacao": "Sabendo que",
         "enunciado": [
             {
                 "tipo": "texto",
-                "conteudo": "Descartes, em sua obra \"Meditações\", buscava uma base sólida para o conhecimento. Qual frase famosa resume seu método?"
+                "conteudo": "Com o intuito de fazer bombons para vender, uma doceira comprou uma barra de 2 kg de chocolate e 1 L de creme de leite. De acordo com a receita, cada bombom deverá ter exatamente 34 g de chocolate e 12 mL de creme de leite."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Respeitando os critérios estabelecidos, quantos bombons a doceira poderá fazer utilizando o máximo que puder os ingredientes comprados?"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "2kg = 2000g de chocolate"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "e cada bombom tem 34 gramas de chocolate"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "2kg de chocolate suporta"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "2000/34 = 58.824 bombons"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "se 1L = 1000 mL de creme de leite e cada bombom tem 12 mL de creme de leite, 1L de creme de leite faria"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "1000/12 = 83.333 bombons"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "como o chocolate faz menos bombons que a quantidade maxima de creme de leite, o máximo que conseguimos fazer são 58 bombons!"
             }
         ]
     },
     {
-        "materia": "Filosofia",
-        "assunto": "Filosofia Contemporânea",
+        "materia": "Matemática",
+        "assunto": "Sistema de equações",
         "dificuldade": 1,
-        "alternativa_a": "A busca por riqueza e poder.",
-        "alternativa_b": "A superação dos limites impostos pela moralidade tradicional.",
-        "alternativa_c": "A busca pela igualdade entre os indivíduos.",
-        "alternativa_d": "A aceitação passiva do destino.",
-        "alternativa_e": "A imitação dos valores da sociedade.",
+        "alternativa_a": "22",
+        "alternativa_b": "24",
+        "alternativa_c": "26",
+        "alternativa_d": "33",
+        "alternativa_e": "39",
         "alternativa_correta": "B",
-        "explicacao": "Nietzsche propôs que o \"super-homem\" é aquele que supera os valores convencionais, criando sua própria moral e perseguindo seu potencial de forma independente.",
+        "explicacao": "Formando um sistema de equações com os dados da tabela temos",
         "enunciado": [
             {
                 "tipo": "texto",
-                "conteudo": "Friedrich Nietzsche introduziu o conceito do \"super-homem\" como parte de sua filosofia. O que esse conceito representa?"
+                "conteudo": "Uma pessoa pretende viajar por uma companhia aérea que despacha gratuitamente uma mala com até 10kg."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Em duas viagens que realizou, essa pessoa utilizou a mesma mala e conseguiu 10 kg com as seguintes combinações de itens:"
+            },
+            {
+                "tipo": "imagem",
+                "conteudo": "https://s3.amazonaws.com/qcon-assets-production/images/provas/86197/aba7642b69497df391ef.png"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Para ter certeza de que sua bagagem terá massa de 10 kg, ela decide levar essa mala com duas calças, um sapato e o máximo de camisetas, admitindo que itens do mesmo tipo têm a mesma massa."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Qual a quantidade máxima de camisetas que essa pessoa poderá levar?"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "1ª 12x + 4y + 3z = 10kg"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "2ª 18x + 3y + 2z = 10kg"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Temos um sistema formado por 3 incógnitas porém apenas duas equações, para a terceira precisamos descobrir o coeficiente de x que chamaremos de a, onde temos a camisetas, 2 calças e 1 sapato."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "3ª ax + 2y + z = 10kg"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Conseguimos formar uma igualdade subtraindo 2ª – 1ª, onde teremos"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "6x -y – z = 0"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Onde podemos concluir que"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "6x = y + z"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Reorganizando a 2ª equação temos"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "18x + y + z + 2y + z = 10kg"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Já que y + z = 6x, temos"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "18x + 6x + 2y + z = 10"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "24x + 2y + z = 10"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Que está exatamente no formato que queremos e descobrimos que a = 24"
+            }
+        ]
+    },
+    {
+        "materia": "Matemática",
+        "assunto": "Unidade de Medida",
+        "dificuldade": 1,
+        "alternativa_a": "26,4/1 000  x  60",
+        "alternativa_b": "26,4/10  x  60",
+        "alternativa_c": "26,4 × 1 × 60",
+        "alternativa_d": "26,4 × 10 × 60",
+        "alternativa_e": "26,4 × 1 000 × 60",
+        "alternativa_correta": "E",
+        "explicacao": "1 m³ = 1000 dm³ = 1000 L",
+        "enunciado": [
+            {
+                "tipo": "texto",
+                "conteudo": "O projeto de transposição do Rio São Francisco consiste na tentativa de solucionar um problema que há muito afeta as populações do semiárido brasileiro, a seca. O projeto prevê a retirada de 26,4 m³/s de água desse rio. Para tornar mais compreensível a informação do volume de água a ser retirado, deseja-se expressar essa quantidade em litro por minuto."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Disponível em: www.infoescola.com. Acesso em: 28 out. 2015."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Com base nas informações, qual expressão representa a quantidade de água retirada, em litro por minuto?"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Então temos que multiplicar por 1000"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "26,4*1000L/s"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Para transformar em segundo temos que dividir o denominador por 60, mas quando dividimos o denominador, estamos no fim das contas multiplicando o numerador por 60.Entao"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "26,4*1000L/s = 26,4*1000*60L/min"
+            }
+        ]
+    },
+    {
+        "materia": "Matemática",
+        "assunto": "Escala",
+        "dificuldade": 1,
+        "alternativa_a": "1 250",
+        "alternativa_b": "800",
+        "alternativa_c": "125",
+        "alternativa_d": "80",
+        "alternativa_e": "8",
+        "alternativa_correta": "D",
+        "explicacao": "A escala sendo 1 : 1000 e no mapa tem 8 cm, basta multiplicar",
+        "enunciado": [
+            {
+                "tipo": "texto",
+                "conteudo": "A figura a seguir representa parte da planta de um loteamento, em que foi usada a escala 1 : 1 000. No centro da planta uma área circular, com diâmetro de 8 cm, foi destinada para a construção de uma praça."
+            },
+            {
+                "tipo": "imagem",
+                "conteudo": "https://arquivos.qconcursos.com/images/provas/59750/695aa74614c0a587cacd.png"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "O diâmetro real dessa praça, em metro, é:"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "8.1000 = 8000 cm em metros temos"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "8000 cm = 80 m"
+            }
+        ]
+    },
+    {
+        "materia": "Matemática",
+        "assunto": "Razão e proporção",
+        "dificuldade": 1,
+        "alternativa_a": "29,25 e 0,75",
+        "alternativa_b": "28,75 e 1,25",
+        "alternativa_c": "28,50 e 1,50",
+        "alternativa_d": "27,75 e 2,25",
+        "alternativa_e": "25,00 e 5,00",
+        "alternativa_correta": "B",
+        "explicacao": "Se tenho 10g de prata 925, significa que tenho",
+        "enunciado": [
+            {
+                "tipo": "texto",
+                "conteudo": "Os tipos de prata normalmente vendidos são 975, 950 e 925. Essa classificação é feita de acordo com a sua pureza. Por exemplo, a prata 975 é a substância constituída de 975 partes de prata pura e 25 partes de cobre em 1 000 partes da substância. Já a prata 950 é constituída de 950 partes de prata pura e 50 de cobre em 1 000; e a prata 925 é constituída de 925 partes de prata pura e 75 partes de cobre em 1 000. Um ourives possui 10 gramas de prata 925 e deseja obter 40 gramas de prata 950 para produção de uma joia."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Nessas condições, quantos gramas de prata e de cobre, respectivamente, devem ser fundidos com os 10 gramas de prata 925?"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "10.75/1000 = 750/1000 = 0,75 g de bronze"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Para obter 40 gramas de prata 950 quero ter"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "40.50/1000 = 2000/1000 = 2 g de bronze"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Então faltam"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "2,00 – 0,75 = 1,25 g de bronze"
+            }
+        ]
+    },
+    {
+        "materia": "Matemática",
+        "assunto": "Unidade de Medida",
+        "dificuldade": 1,
+        "alternativa_correta": "C",
+        "explicacao": "Cotação da libra em reais:",
+        "enunciado": [
+            {
+                "tipo": "texto",
+                "conteudo": "A cotação de uma moeda em relação a uma segunda moeda é o valor que custa para comprar uma unidade da primeira moeda, utilizando a segunda moeda. Por exemplo, se a cotação do dólar é 1,6 real, isso significa que para comprar 1 dólar é necessário 1,6 real."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Suponha que a cotação do dólar, em reais, seja de 1,6 real, a do euro, em reais, seja de 2,4 reais e a cotação da libra, em euros, seja de 1,1 euro."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Qual é a cotação da libra, em dólares?"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "4,224 dólares"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "2,64 dólares"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "1,65 dólar"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "1,50 dólar"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "1,36 dólar"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "1,1 euros = 1,1.2,4 = 2,64 reais."
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "Cotação da libra em dólares:"
+            },
+            {
+                "tipo": "texto",
+                "conteudo": "2,64 reais/1,6 reais = 1,65 dólares."
             }
         ]
     }
