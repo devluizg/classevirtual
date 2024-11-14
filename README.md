@@ -97,5 +97,5 @@ python manage.py runserver
 <hr>
 
 <p align="center">
-  Feito com ❤️ por <a href="https://github.com/seu-usuario">Luiz Gabriel</a>
+  Feito com ❤️ por <a href="https://github.com/devluizg">Luiz Gabriel</a>
 </p>
