@@ -57,6 +57,7 @@ python -m venv venv
 # Ative o ambiente virtual
 # No Windows:
 venv\Scripts\activate
+  
 # No Unix ou MacOS:
 source venv/bin/activate
 
@@ -96,5 +97,5 @@ python manage.py runserver
 <hr>
 
 <p align="center">
-  Feito com ❤️ por <a href="https://github.com/seu-usuario">Seu Nome</a>
+  Feito com ❤️ por <a href="https://github.com/seu-usuario">Luiz Gabriel</a>
 </p>
