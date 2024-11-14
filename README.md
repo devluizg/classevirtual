@@ -1,7 +1,7 @@
 <h1 align="center">Classe Virtual</h1>
 
 <p align="center">
-  <img src="https://via.placeholder.com/150" alt="Logo da Classe Virtual" width="150" height="150">
+  <img src="data/logo.jpg" alt="Logo Classe Virtual" width="150">
 </p>
 
 <p align="center">
