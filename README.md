@@ -1,7 +1,7 @@
 <h1 align="center">Classe Virtual</h1>
 
 <p align="center">
-  <img src="data/logo.png" alt="Logo Classe Virtual" width="150">
+  <img src="data/logo.jpg" alt="Logo Classe Virtual" width="150">
 </p>
 
 <p align="center">
